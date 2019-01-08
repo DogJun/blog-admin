@@ -1,5 +1,16 @@
-language: node_js
-node_js: stable
-script: npm run test
-notifications:
-  email: false
+language: node_js           # 声明构建语言环境
+
+node_js: stable              # node.js最低版本
+
+branches:                   # 使用分支
+  only:
+  - master
+
+notifications:              # 每次构建的时候是否通知，如果不想收到通知邮箱（个人感觉邮件贼烦），那就设置false吧
+  email: true
+
+sudo: false                 # 开启基于容器的Travis CI任务，让编译效率更高。
+
+before_script: npm install  # 构建前置命名
+
+script: npm run build        # 构建命名
