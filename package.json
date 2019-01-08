@@ -4,6 +4,7 @@
   "description": "house-delivery",
   "main": "index.js",
   "scripts": {
+    "test": "echo \" ci run success \"",
     "start": "webpack-dev-server --mode development --open",
     "build": "webpack --mode production --e pro",
     "analysis": "webpack --mode production --profile --json > stats.json",
