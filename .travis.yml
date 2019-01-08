@@ -1,16 +1,31 @@
-language: node_js           # 声明构建语言环境
-
-node_js: stable              # node.js最低版本
-
-branches:                   # 使用分支
+language: node_js
+node_js: stable
+cache:
+  apt: true
+  directories:
+  - node_modules
+cache:
+  apt: true
+  directories:
+  - node_modules
+branches:
   only:
   - master
-
-notifications:              # 每次构建的时候是否通知，如果不想收到通知邮箱（个人感觉邮件贼烦），那就设置false吧
+notifications:
   email: true
-
-sudo: false                 # 开启基于容器的Travis CI任务，让编译效率更高。
-
-before_script: npm install  # 构建前置命名
-
-script: npm run build        # 构建命名
+sudo: false
+env:
+- SERVER_IP_ADDRESS=119.29.90.205
+addons:
+  ssh_known_hosts:
+  - 119.29.90.205
+before_script: npm install
+script: npm run build
+before_install:
+- openssl aes-256-cbc -K $encrypted_c125edad09bf_key -iv $encrypted_c125edad09bf_iv
+  -in deploy_key.enc -out ./deploy_key -d
+- eval "$(ssh-agent -s)"
+- chmod 600 ./deploy_key
+- echo -e "Host $SERVER_IP_ADDRESS\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+- ssh-add ./deploy_key
+- ssh -i ./deploy_key root@119.29.90.205 pwd
