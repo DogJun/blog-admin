@@ -1,4 +1,4 @@
 module.exports = {
-  NODE_ENV: '"pro"',
+  NODE_ENV: '"production"',
   API_HOST: '"xxx"'
 }
