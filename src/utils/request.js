@@ -34,7 +34,10 @@ export default {
     return axios({
       method: 'post',
       data,
-      url
+      url,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     }).then(res => {
       return Promise.resolve(res.data)
     })
